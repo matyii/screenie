@@ -1,4 +1,7 @@
-[(Logo)](/preview/logo.png)
+<p align="center">
+    <img src="/preview/logo.png" width="200"/>
+</p>
+
 # screenie.host
 ## ShareX screenshot uploader built with NodeJS and [DaisyUI](https://v5.daisyui.com/)
 
