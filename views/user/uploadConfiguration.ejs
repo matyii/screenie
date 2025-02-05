@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload Configuration ~ screenie.host</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="container mx-auto p-4 rounded-lg">
+        <%- include('../modules/navbar') %>
+    </div>
+    <div class="container mx-auto px-4 min-h-screen">
+        <div class="flex justify-center mb-4">
+            <div role="tablist" class="tabs tabs-lift">
+                <input type="radio" name="config_tabs" role="tab" class="tab" aria-label="Config Download" id="tab-config-download" checked="checked" />
+                <div class="tab-content bg-base-100 border-base-300 p-6 text-center" id="config-download">
+                    <div class="divider divider-primary text-xl">Config Download</div>
+                    <a href="#" id="downloadButton" onclick="handleDownload()" class="btn btn-soft btn-primary text-base-content text-l btn-lg mt-5"><i class="bi bi-cloud-arrow-down-fill"></i> Download</a>
+                </div>
+
+                <input type="radio" name="config_tabs" role="tab" class="tab" aria-label="Domain Config" id="tab-domain-config" />
+                <div class="tab-content bg-base-100 border-base-300 p-6 hidden mx-auto" id="domain-config">
+                    <div class="divider divider-primary text-xl">Domain Configuration</div>
+                    <h2 class="text-center text-xl">Current: <%= subdomain ? subdomain + '.' : '' %><%= domain %></h2>
+                    <form id="domainform" action="uploadpreferences/update-domain" method="post">
+                        <div class="form-control mb-3">
+                            <label for="subdomain" class="label">
+                                <span class="label-text">Subdomain:</span>
+                            </label>
+                            <input type="text" id="subdomain" name="subdomain" value="<%= subdomain %>" placeholder="Type here" class="input input-bordered w-full">
+                        </div>
+                        <div class="form-control mb-3">
+                            <label for="domain" class="label">
+                                <span class="label-text">Domain:</span>
+                            </label>
+                            <select id="domain" name="domain" class="select w-full">
+                                <% for (let domain of domains) { %>
+                                    <option value="<%= domain %>" <%= domain === selectedDomain ? 'selected' : '' %>><%= domain %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="form-control mt-3">
+                            <button type="submit" class="btn btn-soft btn-primary text-base-content w-full">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+                <input type="radio" name="config_tabs" role="tab" class="tab" aria-label="Embed Config" id="tab-embed-config" />
+                <div class="tab-content bg-base-100 border-base-300 p-6 hidden" id="embed-config">
+                    <div class="divider divider-primary text-xl">Embed Configuration</div>
+                    <form id="embedForm" action="uploadpreferences/update-embed" method="post">
+                        <div id="embedViewer-wrapper">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <input type="text" class="input input-bordered w-full" name="embedTitle" id="embedViewer_title" placeholder="Embed title..." value="<%= embedTitle %>">
+                                    </div>
+                                    <textarea class="textarea textarea-bordered w-full mb-2" name="embedDescription" id="embedViewer_description" placeholder="Embed description..."><%= embedDescription %></textarea>
+                                    <div class="mb-3">
+                                        <input type="text" class="input input-bordered w-full" name="embedURL" id="embedViewer_url" placeholder="Embed URL..." value="<%= embedURL %>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="input input-bordered w-full" name="embedImage" id="embedViewer_image" placeholder="Embed image URL..." value="<%= embedImage %>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="input input-bordered w-full" name="embedFooter" id="embedViewer_footer" placeholder="Embed footer..." value="<%= embedFooter %>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="color" class="input input-bordered w-full" name="embedColor" id="embedViewer_color" placeholder="Embed color..." value="<%= embedColor %>">
+                                    </div>
+                                    <div class="form-control mt-3">
+                                        <button type="submit" class="btn btn-soft btn-primary text-base-content w-full">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../modules/configGeneration') %>
+    <script>
+        document.querySelectorAll('[role="tab"]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('[role="tab"]').forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                document.getElementById(tab.id.replace('tab-', '')).classList.remove('hidden');
+            });
+        });
+
+        function handleSelectChange() {
+            const selectedValue = document.getElementById('configSelect').value;
+            const options = ['windows', 'ios', 'linux'];
+
+            options.forEach(option => {
+                document.getElementById(option).classList.add('hidden');
+            });
+
+            if (selectedValue) {
+                document.getElementById(selectedValue).classList.remove('hidden');
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+</body>
+</html>

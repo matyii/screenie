@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin - Domains ~ screenie.host</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/output.css">
+</head>
+<body>
+    <div class="container mx-auto p-4">
+        <%- include('../modules/navbar') %>
+    </div>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="text-center fadein">
+            <h1 class="text-5xl text-base-content mb-2">Domains</h1>
+            <button class="btn btn-primary mb-4" onclick="showAddDomainModal()">Add New Domain</button>
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Domain Name</th>
+                            <th>Edit / Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% domains.forEach(domain => { %>
+                            <tr>
+                                <td><%= domain.id %></td>
+                                <td><%= domain.domain_name %></td>
+                                <td>
+                                    <button class="btn btn-ghost" onclick="showDomainDetails('<%= domain.id %>')"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-error" onclick="showDeleteDomainModal('<%= domain.id %>')"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Domain Name</th>
+                            <th>Edit / Delete</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto p-4">
+        <%- include('../modules/footer') %>
+    </div>
+    <%- include('../modules/modals/domainModals') %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+</body>
+</html>

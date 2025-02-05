@@ -1,0 +1,5 @@
+node_modules/
+src/uploads
+src/uploads/*
+src/archives
+src/archives/*

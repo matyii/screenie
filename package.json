@@ -1,0 +1,42 @@
+{
+  "name": "screenie.host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:css && node .",
+    "build:css": "npx @tailwindcss/cli -i views/assets/style.css -o views/assets/output.css"
+  },
+  "author": "itsmatyii",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.0-beta.9",
+    "archiver": "^7.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "colorette": "^2.0.20",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "express-session": "^1.17.3",
+    "filesize": "^6.3.0",
+    "formidable": "^1.2.2",
+    "fs": "0.0.1-security",
+    "mysql": "^2.18.1",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
+    "os-utils": "^0.0.14",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "randomstring": "^1.2.1",
+    "serve-index": "^1.9.1",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^4.0.0-beta.9"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.0-beta.1"
+  }
+}

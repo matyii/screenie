@@ -1,0 +1,82 @@
+<div id="deleteUserModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Confirm Deletion</h3>
+        <p>Are you sure you want to delete this user?</p>
+        <div class="modal-action">
+            <button type="button" class="btn btn-error" onclick="confirmDeleteUser()">Delete</button>
+            <button type="button" class="btn btn-primary" onclick="closeDeleteModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="userDetailsModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">User Details</h3>
+        <form id="userDetailsForm">
+            <input type="hidden" id="userId" name="userId">
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Username</span>
+                </label>
+                <input type="text" id="username" name="username" class="input input-bordered">
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="email" id="email" name="email" class="input input-bordered">
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Permission Level</span>
+                </label>
+                <select id="permissionLevel" name="permissionLevel" class="select select-bordered">
+                    <% permissionLevels.forEach(level => { %>
+                        <option value="<%= level.id %>"><%= level.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Storage Capacity</span>
+                </label>
+                <select id="storageCapacity" name="storageCapacity" class="select select-bordered">
+                    <% storageCapacities.forEach(capacity => { %>
+                        <option value="<%= capacity.id %>"><%= capacity.name %> (<%= formatSize(capacity.capacity * 1024 * 1024) %>)</option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Vanity URL</span>
+                </label>
+                <input type="text" id="vanityURL" name="vanityURL" class="input input-bordered" placeholder="URL">
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Private Account</span>
+                </label>
+                <input type="checkbox" id="private" name="private" class="checkbox">
+            </div>
+            <div class="form-control mb-4">
+                <label class="label">
+                    <span class="label-text">Badges</span>
+                </label>
+                <div class="grid grid-cols-2 gap-4">
+                    <% badges.forEach(badge => { %>
+                        <div class="card">
+                            <label class="cursor-pointer">
+                                <input type="checkbox" class="checkbox badge-checkbox" value="<%= badge.id %>">
+                                <span class="label-text"><%= badge.name %></span>
+                            </label>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="modal-action">
+                <button type="button" class="btn btn-primary" onclick="saveUserDetails()">Save</button>
+                <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

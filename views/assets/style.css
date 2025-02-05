@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+@font-face {
+    font-family: 'proxima-soft';
+    src: url('/assets/proxima-soft.ttf') format('truetype');
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+body {
+    font-family: proxima-soft, sans-serif;
+}
+
+.blurred {
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+}

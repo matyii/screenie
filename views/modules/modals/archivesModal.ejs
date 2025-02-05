@@ -1,0 +1,19 @@
+<dialog id="archives_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-base-200 text-base-content">
+      <h3 class="text-lg font-bold">Manage archives</h3>
+      <div id="validArchiveAlert" role="alert" class="alert alert-warning my-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>You can't create another archive, while you have an active one!</span>
+      </div>
+      <hr class="my-3 mx-auto border-gray-300">
+      <ul id="archivesList" class="list-group">
+      </ul>
+      <p id="noArchivesMessage" class="text-center mt-3" style="display: none;">No archives found</p>
+      <div class="modal-action">
+        <button class="btn btn-soft text-base-content" onclick="archives_modal.close()">Close</button>
+        <button class="btn btn-soft btn-primary text-base-content" id="createArchiveButton">Create Archive</button>
+      </div>
+    </div>
+</dialog>

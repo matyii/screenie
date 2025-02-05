@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin - Uploads ~ screenie.host</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/output.css">
+</head>
+<body>
+    <div class="container mx-auto p-4">
+        <%- include('../modules/navbar') %>
+    </div>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="text-center fadein">
+            <h1 class="text-5xl text-base-content mb-2">Uploads</h1>
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Filename</th>
+                            <th>Upload Date</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% uploads.forEach(upload => { %>
+                            <tr>
+                                <td><%= upload.id %></td>
+                                <td><%= upload.user_id %></td>
+                                <td><%= upload.file_name %></td>
+                                <td><%= upload.upload_date %></td>
+                                <td>
+                                    <button class="btn btn-error" onclick="showDeleteUploadModal('<%= upload.id %>')"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Filename</th>
+                            <th>Upload Date</th>
+                            <th>Delete</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto p-4">
+        <%- include('../modules/footer') %>
+    </div>
+
+    <div id="deleteUploadModal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">Confirm Deletion</h3>
+            <p>Are you sure you want to delete this upload?</p>
+            <div class="modal-action">
+                <button type="button" class="btn btn-error" onclick="confirmDeleteUpload()">Delete</button>
+                <button type="button" class="btn btn-outline" onclick="closeDeleteUploadModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let uploadIdToDelete = null;
+
+        function closeUploadModal() {
+            document.getElementById('uploadDetailsModal').classList.remove('modal-open');
+        }
+
+        function showDeleteUploadModal(uploadId) {
+            uploadIdToDelete = uploadId;
+            document.getElementById('deleteUploadModal').classList.add('modal-open');
+        }
+
+        function confirmDeleteUpload() {
+            // Send delete request to the server
+            fetch(`/admin/upload/${uploadIdToDelete}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        // Close the modal and refresh the page
+                        closeDeleteUploadModal();
+                        location.reload();
+                    } else {
+                        alert('Error deleting upload');
+                    }
+                })
+                .catch(error => console.error('Error deleting upload:', error));
+        }
+
+        function closeDeleteUploadModal() {
+            document.getElementById('deleteUploadModal').classList.remove('modal-open');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+</body>
+</html>

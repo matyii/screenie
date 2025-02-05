@@ -1,0 +1,70 @@
+[
+    {
+        "endpoint":"/",
+        "location":"../routes/home"
+    },
+    {
+        "endpoint":"/uploads/:userId",
+        "location":"../routes/rawfile"
+    },
+    {
+        "endpoint":"/uploads",
+        "location":"../routes/preview"
+    },
+    {
+        "endpoint":"/api/profile_pictures",
+        "location":"../routes/profilePicture"
+    },
+    {
+        "endpoint":"/api/domains",
+        "location":"../routes/api/apiDomains"
+    },
+    {
+        "endpoint":"/api/uploads",
+        "location":"../routes/api/apiUploads"
+    },
+    {
+        "endpoint":"/api/upload",
+        "location":"../routes/api/apiUpload"
+    },
+    {
+        "endpoint": "/dashboard",
+        "location": "../routes/user/dashboard"
+    },
+    {
+        "endpoint": "/dashboard/settings",
+        "location": "../routes/user/settings"
+    },
+    {
+        "endpoint": "/dashboard/uploads",
+        "location": "../routes/user/gallery"
+    },
+    {
+        "endpoint": "/dashboard/archives",
+        "location": "../routes/user/archiveManagement"
+    },
+    {
+        "endpoint": "/dashboard/uploadpreferences",
+        "location": "../routes/user/uploadConfiguration"
+    },
+    {
+        "endpoint": "/dashboard/editprofile",
+        "location": "../routes/user/editProfile"
+    },
+    {
+        "endpoint": "/admin",
+        "location": "../routes/admin/adminDashboard"
+    },
+    {
+        "endpoint": "/register",
+        "location": "../routes/user/register"
+    },
+    {
+        "endpoint": "/login",
+        "location": "../routes/user/login"
+    },
+    {
+        "endpoint": "/u",
+        "location": "../routes/profiles/profile"
+    }
+]

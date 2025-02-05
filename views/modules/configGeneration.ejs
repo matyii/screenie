@@ -1,0 +1,50 @@
+<script>
+    var configJson = {};
+    function generateConfig() {
+        var configResultTextarea = document.getElementById('config-result');
+
+        var uploadKey = `<%=uploadKey%>`;
+        config = {
+            "Version": "13.4.0",
+            "Name": "screenie.host",
+            "DestinationType": "ImageUploader, FileUploader",
+            "RequestMethod": "POST",
+            "RequestURL": "http://<%=mainDomain%>/api/upload",
+            "Body": "MultipartFormData",
+            "Arguments": {
+                "uploadKey": uploadKey
+            },
+            "FileFormName": "file",
+            "URL": "$response$",
+        };
+
+        configJson = config;
+        configResultTextarea.value = JSON.stringify(config, null, 2);
+    }
+
+    function downloadConfig() {
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(configJson));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "screenie.host.sxcu");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+
+    function handleDownload() {
+        var downloadButton = document.getElementById('downloadButton');
+        var originalContent = downloadButton.innerHTML;
+
+        downloadButton.classList.add('btn-disabled')
+        downloadButton.innerHTML = '<span class="loading loading-ring loading-md"></span>';
+
+        setTimeout(function() {
+            downloadConfig();
+            downloadButton.classList.remove('btn-disabled');
+            downloadButton.innerHTML = originalContent;
+        }, 3000);
+    }
+
+    window.onload = generateConfig;
+</script>

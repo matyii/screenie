@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <title>screenie.host - <%= file %></title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <meta property="og:title" content="<%= embedTitle %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= fileUrl %>" />
+    <meta property="og:image" content="<%= fileUrl %>" />
+    <meta property="og:description" content="<%= embedDescription %>"/>
+    <meta name="theme-color" content="<%= embedColor %>">
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:image" content="<%= fileUrl %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/output.css">
+</head>
+<body>
+    <div class="container mx-auto p-4 rounded-lg">
+        <%- include('../modules/navbar') %>
+    </div>
+    <div class="container flex justify-center items-center min-h-screen mx-auto">
+        <div class="card bg-base-200 shadow-xl w-full lg:w-1/2 mb-5">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title text-center"><%= item %> (<%= fileSize %>)</h2>
+                <a href="<%= fileUrl %>" target="_blank">
+                    <img src="<%= fileUrl %>" class="rounded-lg my-3 max-w-full h-auto shadow-xl">
+                </a>
+                <h2 class="card-text mt-3 text-2xl text-center">
+                    Uploaded by: 
+                    <% if (vanityURL) { %>
+                        <a href="/u/<%= vanityURL %>" class="text-primary"><%= user %></a>
+                    <% } else { %>
+                        <span class="text-primary"><%= user %></span>
+                    <% } %>
+                </h2>
+                <div class="card-actions justify-center mt-4">
+                    <a href="<%= fileUrl %>" class="btn btn-soft btn-primary text-base-content" download>Download</a>
+                    <div class="dropdown dropdown-center dropdown-right">
+                        <div tabindex="0" role="button" class="btn btn-soft btn-primary text-base-content">Share</div>
+                        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                            <li><button onclick="copyToClipboard(`${location.host}<%= fileUrl %>`, this)">Copy Raw URL</></li>
+                            <li><button onclick="copyToClipboard(`${location.href}`, this)">Copy Regular URL</></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+    <script>
+        function copyToClipboard(text, element) {
+        navigator.clipboard.writeText(text).then(function() {
+            const originalText = element.innerHTML;
+            element.innerHTML = '<i class="bi bi-check"></i> Copied!';
+            setTimeout(() => {
+                element.innerHTML = originalText;
+            }, 2000);
+        }).catch(function(error) {
+            console.error('Error copying to clipboard:', error);
+        });
+    }
+    </script>
+</body>
+</html>

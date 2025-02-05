@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Profile ~ screenie.host</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/output.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container mx-auto p-4 rounded-lg">
+        <%- include('../modules/navbar') %>
+    </div>
+    <div class="container min-h-screen mx-auto px-5">
+        <div class="flex flex-col lg:flex-row gap-4">
+            <div class="card bg-base-300 shadow-xl w-full lg:w-1/2">
+                <div class="card-body">
+                    <div class="divider divider-primary text-xl">Edit User Information</div>
+                    <form id="editUserInfoForm" action="editprofile/updateUser" method="post">
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Username</legend>
+                                <input type="text" name="username" class="input input-bordered w-full validator" required placeholder="Type here" value="<%= user.username %>" autocomplete="username" pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="20" title="Only letters, numbers or dash" />
+                                <p class="fieldset-label">Must be 3 to 20 characters containing only letters, numbers or dash</p>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Email</legend>
+                                <input class="input input-bordered w-full validator" type="email" required id="email" name="email" value="<%= user.email %>" placeholder="Type here" autocomplete="email">
+                                <p class="fieldset-label">Enter valid email address</p>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Password</legend>
+                                <input type="password" class="input input-bordered w-full validator" placeholder="Type here" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" autocomplete="current-password">
+                                <p class="fieldset-label">Must be more than 8 characters, including:<br>- At least one number<br>- At least one lowercase letter<br>- At least one uppercase letter</p>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mt-3">
+                            <button type="submit" class="btn btn-soft btn-primary text-base-content w-full">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card bg-base-300 shadow-xl w-full lg:w-1/2">
+                <div class="card-body">
+                    <div class="divider divider-primary text-xl">Customize your page</div>
+                    <form id="customProfileLinkForm" action="editprofile/updateUserPage" method="post" enctype="multipart/form-data">
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Your vanity URL and Pronouns</legend>
+                                <div class="flex flex-col lg:flex-row gap-4">
+                                    <div class="flex-1">
+                                        <label class="input">
+                                            <span class="label font-bold text-lg">https://screenie.host/u/</span>
+                                            <input type="text" id="vanityURL" name="vanityURL" value="<%- user.vanityURL %>" placeholder="Vanity URL" />
+                                        </label>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label class="input">
+                                            <span class="label font-bold text-lg">Pronouns</span>
+                                            <input type="text" name="pronouns" placeholder="he/him, she/her, ..." value="<%= user.pronouns %>">
+                                        </label>
+                                    </div>
+                                </div>
+                                <p class="fieldset-label">There are some rules!
+                                    <span class="tooltip tooltip-bottom tooltip-primary" data-tip="Your vanity URL must be unique and contain only letters, numbers, or dashes.">
+                                        <i class="bi bi-info-circle"></i>
+                                    </span>
+                                </p>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">YouTube URL</legend>
+                                <input type="text" id="youtubeURL" name="youtubeURL" class="input input-bordered w-full" placeholder="YouTube URL" value="<%= user.youtubeURL ? 'https://www.youtube.com/watch?v=' + user.youtubeURL : '' %>">
+                                <p class="fieldset-label">Enter a valid YouTube URL</p>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Profile Picture</legend>
+                                <input type="file" id="profilePicture" name="profilePicture" class="file-input file-input-ghost w-full" accept="image/jpeg, image/png, image/webp, image/gif" autocomplete="off">
+                            </fieldset>
+                        </div>
+                        <div class="form-control mb-3">
+                            <div class="flex gap-4">
+                                <fieldset class="fieldset flex-1 text-center">
+                                    <legend class="fieldset-legend text-base">Private Account</legend>
+                                    <label class="swap">
+                                        <input type="checkbox" id="private" name="private" class="hidden" <%= user.private ? 'checked' : '' %>>
+                                        <i class="bi bi-lock-fill swap-on text-3xl"></i>
+                                        <i class="bi bi-unlock-fill swap-off text-3xl"></i>
+                                    </label>
+                                </fieldset>
+                                <fieldset class="fieldset flex-1 text-center">
+                                    <legend class="fieldset-legend text-base">Hide navbar and footer in profile page</legend>
+                                    <label class="swap">
+                                        <input type="checkbox" id="hideNavbar" name="hideNavbar" class="hidden" <%= user.hideNavbar ? 'checked' : '' %>>
+                                        <i class="bi bi-eye-slash-fill swap-on text-3xl"></i>
+                                        <i class="bi bi-eye-fill swap-off text-3xl"></i>
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="form-control mb-3">
+                            <fieldset class="fieldset">
+                                <legend class="fieldset-legend text-base">Bio</legend>
+                                <textarea name="bio" class="textarea textarea-bordered w-full" rows="4" placeholder="Bio" maxlength="120" style="resize: none;"><%= user.bio %></textarea>
+                            </fieldset>
+                        </div>
+                        <div class="form-control mt-3">
+                            <button type="submit" class="btn btn-soft btn-primary text-base-content w-full">Save</button>
+                        </div>
+                    </form>
+                    <div id="alertContainer" class="hidden">
+                        <div role="alert" class="alert alert-error">
+                            <span id="alertMessage"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col lg:flex-row gap-4 mt-4">
+          <div class="card bg-base-300 shadow-xl w-full">
+            <div class="card-body">
+              <div class="container text-center">
+                <div class="divider divider-primary text-xl py-5">Integrations</div>
+                <!-- <div class="flex w-full flex-col lg:flex-row">
+                  <div class="card bg-base-200 rounded-box grid h-max grow place-items-center p-5">
+                    <img src="/assets/icons/discord-blue.svg" class="w-20 m-5">
+                    <h1 class="text-lg font-bold">Discord</h1>
+                    <p>Link your Discord profile to our community server!</p>
+                    <div class="tooltip tooltip-bottom tooltip-primary" data-tip="This feature is not available yet!">
+                      <button class="btn bg-[#5865F2] btn-disabled border-none mt-3"><i class="bi bi-discord"></i>Link with Discord</button>
+                    </div>
+                  </div>
+                  <div class="divider lg:divider-horizontal"></div> -->
+                  <div class="card bg-base-200 rounded-box grid h-max grow place-items-center p-5">
+                    <img src="/assets/icons/spotify-green.svg" class="w-20 m-5">
+                    <h1 class="text-lg font-bold">Spotify</h1>
+                    <p>Add your current playing song to your profile!</p>
+                    <div class="tooltip tooltip-bottom tooltip-primary" data-tip="This feature is not available yet!">
+                      <button class="btn bg-[#1DB954] btn-disabled border-none mt-3"><i class="bi bi-spotify"></i>Link with Spotify</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    <div class="container mx-auto p-4 rounded-lg">
+        <%- include('../modules/footer') %>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+    <script>
+        function showAlert(message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i><span class="mx-2">${message}</span>`;
+            alertContainer.classList.remove('hidden');
+            setTimeout(() => {
+                alertContainer.classList.add('hidden');
+            }, 3000);
+        }
+
+        function isValidYouTubeUrl(url) {
+            const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(\?.*)?$/;
+            return regex.test(url);
+        }
+
+        function extractYouTubeVideoID(url) {
+            const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const matches = url.match(regex);
+            return matches ? matches[1] : null;
+        }
+
+        document.getElementById('customProfileLinkForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const originalVanityURL = '<%= user.vanityURL %>';
+            const vanityURL = document.getElementById('vanityURL').value;
+            const youtubeURL = document.getElementById('youtubeURL').value;
+            const profilePicture = document.getElementById('profilePicture').files[0];
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+            if (profilePicture && !allowedTypes.includes(profilePicture.type)) {
+                showAlert('Invalid file type. Only JPEG, PNG, WEBP, and GIF are allowed.');
+                return;
+            }
+
+            if (youtubeURL && !isValidYouTubeUrl(youtubeURL)) {
+                showAlert('Invalid YouTube URL.');
+                return;
+            }
+
+            const youtubeVideoID = extractYouTubeVideoID(youtubeURL);
+
+            if (vanityURL !== originalVanityURL) {
+                $.post('editprofile/checkVanityURL', { vanityURL: vanityURL }, function(response) {
+                    if (response.success) {
+                        document.getElementById('youtubeURL').value = youtubeVideoID;
+                        document.getElementById('customProfileLinkForm').submit();
+                    } else {
+                        showAlert(response.message);
+                    }
+                });
+            } else {
+                document.getElementById('youtubeURL').value = youtubeVideoID;
+                document.getElementById('customProfileLinkForm').submit();
+            }
+        });
+    </script>
+</body>
+</html>
