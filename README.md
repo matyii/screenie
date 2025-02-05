@@ -42,9 +42,9 @@ Here is a list of all the keys in the `.env` file with their meaning:
 - `DB_NAME`: The database name.
 
 ### Plans in the future
-- [] Trying to move the project to a framework
-- [] Spotify API for the profiles
-- [] Expanding the dashboard
+- [ ] Trying to move the project to a framework
+- [ ] Spotify API for the profiles
+- [ ] Expanding the dashboard
 
 ### How to make new endpoints
 To make a new endpoint you need to make a file in the `routes` folder with your name of choice. Example: `example.js`
