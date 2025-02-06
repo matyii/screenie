@@ -3,3 +3,4 @@ src/uploads
 src/uploads/*
 src/archives
 src/archives/*
+.env
