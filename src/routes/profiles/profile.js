@@ -16,7 +16,7 @@ router.get("/:vanityURL", (req, res) => {
         }
 
         if (results.length === 0) {
-            return res.render('profiles/publicProfile', { userNotFound: true });
+            return res.render('profiles/publicProfile', { userNotFound: true, user: null });
         }
 
         const user = results[0];
@@ -51,8 +51,6 @@ router.get("/:vanityURL", (req, res) => {
                 });
             });
         } else {
-            const badges = [];
-
             const permissionQuery = 'SELECT name, color FROM permission_levels WHERE id = ?';
             db.query(permissionQuery, [user.permission_level], (permErr, permResults) => {
                 if (permErr) {
@@ -65,7 +63,7 @@ router.get("/:vanityURL", (req, res) => {
                     color: permResults[0].color
                 } : { name: 'Unknown', color: 'secondary' };
 
-                res.render('profiles/publicProfile', { user, badges, permissionLevel, userNotFound: false });
+                res.render('profiles/publicProfile', { user, badges: [], permissionLevel, userNotFound: false });
             });
         }
     });

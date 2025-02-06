@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
+    <% if (!userNotFound) { %>
         <title><%- user.username %> ~ screenie.host</title>
-        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/assets/output.css">
-    </head>
-    <body>
-        <% if (!user.hideNavbar) { %>
-            <div class="container mx-auto p-4">
-                <%- include('../modules/navbar') %>
-            </div>
-        <% } %>
-        <div class="container mx-auto p-4 flex justify-center items-center min-h-screen">
-            <% if (userNotFound) { %>
-                <div class="card bg-base-300 shadow-xl w-full max-w-md">
-                    <div class="card-body">
-                        <div class="alert alert-error text-center">
-                            <i class="bi bi-exclamation-triangle-fill"></i><span>User not found.</span>
-                        </div>
-                    </div>
-                </div>
-            <% } else if (user.private) { %>
-                <div class="card bg-base-300 shadow-xl w-full max-w-md">
-                    <div class="card-body">
-                        <div class="alert alert-warning text-center">
-                            <i class="bi bi-person-fill-lock"></i><span>This profile is private.</span>
-                        </div>
-                    </div>
-                </div>
-            <% } else { %>
-                <div class="flex flex-col lg:flex-row gap-4">
-                    <div class="card bg-base-300 shadow-xl w-full max-w-md">
-                        <div class="card-body text-center">
-                            <div class="divider divider-primary text-xl">Profile</div>
-                            <div class="avatar py-5 flex justify-center">
-                                <div class="ring-<%= permissionLevel.color %> ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
-                                    <% if (user.profile_picture) { %>
-                                        <img src="/api/profile_pictures/<%= user.profile_picture %>" class="rounded-full w-24 h-24" />
-                                    <% } else { %>
-                                        <div class="avatar avatar-placeholder">
-                                            <div class="bg-neutral text-neutral-content w-24 h-24 rounded-full flex items-center justify-center">
-                                                <span class="text-3xl"><%= user.username.charAt(0).toUpperCase() %></span>
-                                            </div>
-                                        </div>
-                                    <% } %>
-                                </div>
-                            </div>
-                            <h1 class="text-2xl font-bold"><%= user.username %></h1>
-                            <p class="text-base opacity-50"><%= user.pronouns %></p>
-                            <div class="flex flex-wrap justify-center py-3 gap-2">
-                                <div class="badge badge-soft badge-<%= permissionLevel.color %>">
-                                    <%= permissionLevel.name %>
-                                </div>
-                                <% badges.forEach(badge => { %>
-                                    <div class="badge badge-soft badge-<%= badge.color %>">
-                                        <%= badge.name %>
-                                    </div>
-                                    <% }) %>
-                                </div>
-                                <p class="text-base mb-2"><%= user.bio %></p>
-                        </div>
-                    </div>
-                    <% if (user.youtubeURL) { %>
-                        <div class="card bg-base-300 shadow-xl w-600 max-w-md">
-                            <div class="card-body text-center">
-                                <div class="divider divider-primary text-xl">YouTube</div>
-                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/<%= user.youtubeURL %>?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    <% } %>
-                </div>
-            <% } %>
+    <% } else { %>
+        <title>User Not Found ~ screenie.host</title>
+    <% } %>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/output.css">
+</head>
+<body>
+    <% if (user && !user.hideNavbar) { %>
+        <div class="container mx-auto p-4">
+            <%- include('../modules/navbar') %>
         </div>
-        <% if (!user.hideNavbar) { %>
-            <div class="container mx-auto p-4">
-                <%- include('../modules/footer') %>
+    <% } %>
+    <div class="container mx-auto p-4 flex justify-center items-center min-h-screen">
+        <% if (userNotFound) { %>
+            <div class="card bg-base-300 shadow-xl w-full max-w-md">
+                <div class="card-body">
+                    <div class="alert alert-error text-center">
+                        <i class="bi bi-exclamation-triangle-fill"></i><span>User not found.</span>
+                    </div>
+                </div>
+            </div>
+        <% } else if (user.private) { %>
+            <div class="card bg-base-300 shadow-xl w-full max-w-md">
+                <div class="card-body">
+                    <div class="alert alert-warning text-center">
+                        <i class="bi bi-person-fill-lock"></i><span>This profile is private.</span>
+                    </div>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="flex flex-col lg:flex-row gap-4">
+                <div class="card bg-base-300 shadow-xl w-full max-w-md">
+                    <div class="card-body text-center">
+                        <div class="divider divider-primary text-xl">Profile</div>
+                        <div class="avatar py-5 flex justify-center">
+                            <div class="ring-<%= permissionLevel.color %> ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
+                                <% if (user.profile_picture) { %>
+                                    <img src="/api/profile_pictures/<%= user.profile_picture %>" class="rounded-full w-24 h-24" />
+                                <% } else { %>
+                                    <div class="avatar avatar-placeholder">
+                                        <div class="bg-neutral text-neutral-content w-24 h-24 rounded-full flex items-center justify-center">
+                                            <span class="text-3xl"><%= user.username.charAt(0).toUpperCase() %></span>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <h1 class="text-2xl font-bold"><%= user.username %></h1>
+                        <p class="text-base opacity-50"><%= user.pronouns %></p>
+                        <div class="flex flex-wrap justify-center py-3 gap-2">
+                            <div class="badge badge-soft badge-<%= permissionLevel.color %>">
+                                <%= permissionLevel.name %>
+                            </div>
+                            <% badges.forEach(badge => { %>
+                                <div class="badge badge-soft badge-<%= badge.color %>">
+                                    <%= badge.name %>
+                                </div>
+                            <% }) %>
+                        </div>
+                        <p class="text-base mb-2"><%= user.bio %></p>
+                    </div>
+                </div>
+                <% if (user.youtubeURL) { %>
+                    <div class="card bg-base-300 shadow-xl w-600 max-w-md">
+                        <div class="card-body text-center">
+                            <div class="divider divider-primary text-xl">YouTube</div>
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/<%= user.youtubeURL %>?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                <% } %>
             </div>
         <% } %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="/assets/script.js"></script>
-    </body>
+    </div>
+    <% if (user && !user.hideNavbar) { %>
+        <div class="container mx-auto p-4">
+            <%- include('../modules/footer') %>
+        </div>
+    <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/assets/script.js"></script>
+</body>
 </html>

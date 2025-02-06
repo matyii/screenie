@@ -8,12 +8,12 @@
 ### Features
 - Easy configuration
 - Automatic config generation for each user
-- A user-friendly dashboard
-- User profile management with vanity URLs and private profiles
+- A user-friendly dashboard [(user dashboard)](/preview/userdashboard.png)
+- Archive management to zip the users uploaded files and let them download for 30 days [(archive management)](/preview/archivemanagement.png)
+- User profile management with custom vanity URL and much more [(customization)](/preview/profilecustomization.png) [(example public profile)](/preview/publicprofile.png)
 - Badge system for users
 - Storage capacity management
-- Detailed user and admin dashboard
-- Embed support for uploaded files
+- Detailed user and admin dashboard [(user admin dashboard)](/preview/usermanagement.png) [admin dashboard homepage](/preview/admindashboard.png)
 - Theme customization with [multiple themes available](https://v5.daisyui.com/docs/themes/)
 
 ### Installation

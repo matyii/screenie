@@ -18,6 +18,7 @@
 -- Dumping database structure for screenie.host
 CREATE DATABASE IF NOT EXISTS `screenie.host` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `screenie.host`;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- Dumping structure for table screenie.host.archives
 CREATE TABLE IF NOT EXISTS `archives` (
@@ -29,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `archives` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `archives_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table screenie.host.archives: ~0 rows (approximately)
 
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `badges` (
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table screenie.host.badges: ~2 rows (approximately)
 INSERT INTO `badges` (`id`, `name`, `color`) VALUES
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `uploads` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `uploads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table screenie.host.uploads: ~0 rows (approximately)
 
