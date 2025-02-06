@@ -2,7 +2,7 @@
     <img src="/preview/logo.png" width="200"/>
 </p>
 
-# screenie.host
+# screenie
 ## ShareX screenshot uploader built with NodeJS and [DaisyUI](https://v5.daisyui.com/)
 
 ### Features
