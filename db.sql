@@ -15,12 +15,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for screenie.host
-CREATE DATABASE IF NOT EXISTS `screenie.host` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `screenie.host`;
+-- Dumping database structure for screenie
+CREATE DATABASE IF NOT EXISTS `screenie` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `screenie`;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- Dumping structure for table screenie.host.archives
+-- Dumping structure for table screenie.archives
 CREATE TABLE IF NOT EXISTS `archives` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) NOT NULL,
@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS `archives` (
   CONSTRAINT `archives_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.archives: ~0 rows (approximately)
+-- Dumping data for table screenie.archives: ~0 rows (approximately)
 
--- Dumping structure for table screenie.host.badges
+-- Dumping structure for table screenie.badges
 CREATE TABLE IF NOT EXISTS `badges` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -42,26 +42,26 @@ CREATE TABLE IF NOT EXISTS `badges` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.badges: ~2 rows (approximately)
+-- Dumping data for table screenie.badges: ~2 rows (approximately)
 INSERT INTO `badges` (`id`, `name`, `color`) VALUES
 	(1, 'Early User', 'warning'),
 	(2, 'Bug Hunter', 'accent');
 
--- Dumping structure for table screenie.host.domains
+-- Dumping structure for table screenie.domains
 CREATE TABLE IF NOT EXISTS `domains` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `domain_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.domains: ~4 rows (approximately)
+-- Dumping data for table screenie.domains: ~4 rows (approximately)
 INSERT INTO `domains` (`id`, `domain_name`) VALUES
 	(1, 'localhost'),
 	(3, '127.0.0.1'),
 	(4, 'fbi.com'),
 	(6, 'localtest.me');
 
--- Dumping structure for table screenie.host.permission_levels
+-- Dumping structure for table screenie.permission_levels
 CREATE TABLE IF NOT EXISTS `permission_levels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -69,14 +69,14 @@ CREATE TABLE IF NOT EXISTS `permission_levels` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.permission_levels: ~4 rows (approximately)
+-- Dumping data for table screenie.permission_levels: ~4 rows (approximately)
 INSERT INTO `permission_levels` (`id`, `name`, `color`) VALUES
 	(1, 'User', 'neutral'),
 	(2, 'Moderator', 'info'),
 	(3, 'Admin', 'warning'),
 	(100, 'Owner', 'error');
 
--- Dumping structure for table screenie.host.storage_capacities
+-- Dumping structure for table screenie.storage_capacities
 CREATE TABLE IF NOT EXISTS `storage_capacities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` tinytext DEFAULT NULL,
@@ -84,13 +84,13 @@ CREATE TABLE IF NOT EXISTS `storage_capacities` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.storage_capacities: ~2 rows (approximately)
+-- Dumping data for table screenie.storage_capacities: ~2 rows (approximately)
 INSERT INTO `storage_capacities` (`id`, `name`, `capacity`) VALUES
 	(1, 'Basic', 512),
 	(2, 'Pro', 1024),
 	(3, 'Diamond', 1048576);
 
--- Dumping structure for table screenie.host.uploads
+-- Dumping structure for table screenie.uploads
 CREATE TABLE IF NOT EXISTS `uploads` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) NOT NULL,
@@ -110,9 +110,9 @@ CREATE TABLE IF NOT EXISTS `uploads` (
   CONSTRAINT `uploads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.host.uploads: ~0 rows (approximately)
+-- Dumping data for table screenie.uploads: ~0 rows (approximately)
 
--- Dumping structure for table screenie.host.users
+-- Dumping structure for table screenie.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   KEY `storage_capacity_id` (`storage_capacity_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`storage_capacity_id`) REFERENCES `storage_capacities` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

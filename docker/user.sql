@@ -1,5 +1,5 @@
 CREATE USER 'screenie'@'localhost' IDENTIFIED BY '123456';
-GRANT ALL PRIVILEGES on `screenie.host`.* to 'screenie'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES on `screenie`.* to 'screenie'@'localhost' WITH GRANT OPTION;
 
 /*mariadb secure installation scripts queries*/
 /*set root password*/

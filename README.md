@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/preview/logo.png" width="200"/>
+    <img src="preview/logo.png" width="200"/>
     <div>
         <h1>screenie</h1>
         <h5>ShareX screenshot uploader built with NodeJS and <a href="https://v5.daisyui.com/" target="_blank">DaisyUI</a></h5>
@@ -50,13 +50,41 @@
 ![image](preview/usermanagement.png)
 </details>
 
-## Plans in the future
-- [ ] Trying to move the project to a framework
-- [ ] Spotify API for the profiles
-- [ ] Expanding the dashboard
+<details>
+    <summary><h2>Plans in the future</h2></summary>
+
+| Completed? | Description |
+| --- | --- |
+| [ ] | Trying to move the project to a framework |
+| [ ] | Spotify API for the profiles |
+| [ ] | Expanding the dashboard |
+| [ ] | Adding GitHub packages |
+
+</details>
+
 
 <details>
-    <summary><h2>Easy installation (Docker)</h2></summary>
+    <summary><h2>Known issues</h2></summary>
+
+
+| Fixed? | Description |
+| --- | --- |
+| [ ] | When uploading a profile picture, the temporary file is "busy" and can't delete |
+| [ ] | Admins can demote themselves |
+| [ ] | email/username/password validation needs to be fixed |
+
+</details>
+
+<details>
+    <summary><h2>One-line easy install</h2></summary>
+
+<h1>Soon!</h1>
+
+</details>
+
+
+<details>
+    <summary><h2>Buildind the docker image</h2></summary>
 
 - Build the image with command: ```docker build . -t screenie```
 - Run container with command: ```docker run --name screenie -d --rm -p 80:8000 localhost/screenie:latest```
@@ -68,7 +96,7 @@
 </details>
 
 <details>
-    <summary><h2>Install</h2></summary>
+    <summary><h2>Advanced install</h2></summary>
 
 
 - Download / Clone the source code.
@@ -100,7 +128,7 @@ Here is a list of all the keys in the `.env` file with their meaning:
 | `DB_HOST` | The database host IP. |
 | `DB_USER` | The database user. |
 | `DB_PASSWORD` | The database password. |
-| `DB_NAME` | The database name. (default: `screenie.host`) |
+| `DB_NAME` | The database name. (default: `screenie`) |
 </details>
 
 <details>
@@ -125,7 +153,7 @@ Then you just need to add a new value to the `"routes.json"` array:
 }
 ```
 
-> [!NOTE]
+> DISCLAIMER
 > In your endpoint JS file, leave the router endpoint on `"/"`, since you will be giving the name of the route in the main `routes.json` file.
 </details>
 
