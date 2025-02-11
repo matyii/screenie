@@ -56,6 +56,18 @@
 - [ ] Expanding the dashboard
 
 <details>
+    <summary><h2>Easy installation (Docker)</h2></summary>
+
+- Build the image with command: ```docker build . -t screenie```
+- Run container with command: ```docker run --name screenie -d --rm -p 80:8000 localhost/screenie:latest```
+
+- If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
+- Then run the container with command ```podman run --name screenie -d --rm -p 80:8000 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
+
+- You can now open screenie on the domain, you've set it up in ```data/config.json```.
+</details>
+
+<details>
     <summary><h2>Install</h2></summary>
 
 
@@ -65,18 +77,6 @@
 - Import the SQL file `db.sql`  to your database server and fill in the connection information to the `.env` file.
 - If you have made any changes to the design, run `npm run build:css` to rebuild the CSS file.
 - To run the server, use the command `node .` or `npm start` to run the server.
-</details>
-
-<details>
-    <summary><h2>Docker</h2></summary>
-
-- build the image with command: docker build . -t screenie
-- run container with command: docker run --name screenie -d --rm -p 8000:80 localhost/screenie:latest
-
-- if you want pesistent storage for database, uploads and archives, create volumes with command: docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume
-- then run the container with command podman run --name screenie -d --rm -p 8000:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest
-
-- you can now open screenie on http://localhost:8000
 </details>
 
 <details>
