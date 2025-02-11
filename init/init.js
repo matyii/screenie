@@ -7,9 +7,6 @@ const crypto = require('crypto');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-console.log('Installing pm2 globally...');
-execSync('npm install pm2 -g', { stdio: 'inherit' });
-
 function generateRandomPassword(length) {
     return crypto.randomBytes(length).toString('hex');
 }
