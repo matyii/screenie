@@ -54,7 +54,7 @@
     <summary><h2>Plans in the future</h2></summary>
 
 | Completed? | Description |
-| --- | --- |
+| [---] | --- |
 | ❌ | Trying to move the project to a framework |
 | ❌ | Spotify API for the profiles |
 | ❌ | Expanding the dashboard |
@@ -68,7 +68,7 @@
 
 
 | Fixed? | Description |
-| --- | --- |
+| [---] | --- |
 | ❌ | When uploading a profile picture, the temporary file is "busy" and can't delete |
 | ❌ | Admins can demote themselves |
 | ❌ | email/username/password validation needs to be fixed |
