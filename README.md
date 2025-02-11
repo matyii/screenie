@@ -87,10 +87,10 @@
     <summary><h2>Buildind the docker image</h2></summary>
 
 - Build the image with command: ```docker build . -t screenie```
-- Run container with command: ```docker run --name screenie -d --rm -p 80:8000 localhost/screenie:latest```
+- Run container with command: ```docker run --name screenie -d --rm -p 80:80 localhost/screenie:latest```
 
 - If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
-- Then run the container with command ```podman run --name screenie -d --rm -p 80:8000 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
+- Then run the container with command ```podman run --name screenie -d --rm -p 80:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
 
 - You can now open screenie on the domain, you've set it up in ```data/config.json```.
 </details>
@@ -100,9 +100,8 @@
 
 
 - Download / Clone the source code.
-- Run `npm i` to install the packages.
+- Run `chmod +x install.sh && ./install.sh`(Linux) and `node init/init.js`(Windows) for installing the dependencies
 - Fill in the `config.json` config file.
-- Import the SQL file `db.sql`  to your database server and fill in the connection information to the `.env` file.
 - If you have made any changes to the design, run `npm run build:css` to rebuild the CSS file.
 - To run the server, use the command `node .` or `npm start` to run the server.
 </details>
@@ -133,6 +132,7 @@ Here is a list of all the keys in the `.env` file with their meaning:
 
 <details>
     <summary><h2>How to add new endpoints</h2></summary>
+    
 To make a new endpoint you need to make a file in the `routes` folder with your name of choice. Example: `example.js`
 The empty version should look like this:
     

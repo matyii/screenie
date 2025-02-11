@@ -29,29 +29,30 @@
             <% } else { %>
                 <% for (let i = 0; i < images.length; i++) { %>
                     <div class="card bg-base-200 w-80 shadow-sm mx-auto">
-                        <% const image = images[i]; %>
-                        <% const filename = image.raw_url.split('/').pop(); %>
-                        <% if (image.raw_url.toLowerCase().match(/\.(mp4|mov|webm)$/)) { %>
+                        <% const upload = images[i]; %>
+                        <% const endpoint = upload.raw_url.replace(/^.*\/\/[^\/]+/, ''); %>
+                        <% const filename = endpoint.split('/').pop(); %>
+                        <% if (endpoint.toLowerCase().match(/\.(mp4|mov|webm)$/)) { %>
                             <figure class="px-10 pt-10">
                                 <video controls class="w-full h-auto rounded-xl">
-                                    <source src="<%= image.raw_url %>">
+                                    <source src="<%= endpoint %>">
                                 </video>
                             </figure>
                         <% } else { %>
                             <figure class="px-10 pt-10">
-                                <img src="<%= image.raw_url %>" alt="<%= filename %>" class="rounded-xl">
+                                <img src="<%= endpoint %>" alt="<%= filename %>" class="rounded-xl">
                             </figure>
                         <% } %>
                         <div class="card-body items-center text-center">
                             <h2 class="card-title"><%= filename %></h2>
                             <div class="card-actions justify-center">
-                                <a href="<%= image.raw_url %>" class="btn btn-soft btn-primary text-base-content" download><i class="bi bi-cloud-arrow-down"></i></a>
-                                <a href="<%= image.url %>" target="_blank" class="btn btn-soft btn-primary text-base-content"><i class="bi bi-box-arrow-up-right"></i></a>
+                                <a href="<%= endpoint %>" class="btn btn-soft btn-primary text-base-content" download><i class="bi bi-cloud-arrow-down"></i></a>
+                                <a href="<%= endpoint %>" target="_blank" class="btn btn-soft btn-primary text-base-content"><i class="bi bi-box-arrow-up-right"></i></a>
                                 <div class="dropdown dropdown-center dropdown-right">
                                     <div tabindex="0" role="button" class="btn btn-soft btn-primary text-base-content"><i class="bi bi-clipboard"></i></div>
                                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                                        <li><a href="#" onclick="copyToClipboard('<%= image.raw_url %>', this)">Copy Raw URL</a></li>
-                                        <li><a href="#" onclick="copyToClipboard('<%= image.url %>', this)">Copy Regular URL</a></li>
+                                        <li><a href="#" onclick="copyToClipboard('<%= endpoint %>', this)">Copy Raw URL</a></li>
+                                        <li><a href="#" onclick="copyToClipboard('<%= endpoint %>', this)">Copy Regular URL</a></li>
                                     </ul>
                                 </div>
                                 <button class="btn btn-soft btn-error text-base-content" onclick="showDeleteModal('<%= filename %>')"><i class="bi bi-trash"></i></button>

@@ -18,7 +18,6 @@
 -- Dumping database structure for screenie
 CREATE DATABASE IF NOT EXISTS `screenie` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `screenie`;
-SET FOREIGN_KEY_CHECKS = 0;
 
 -- Dumping structure for table screenie.archives
 CREATE TABLE IF NOT EXISTS `archives` (
@@ -30,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `archives` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `archives_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table screenie.archives: ~0 rows (approximately)
 
@@ -74,7 +73,8 @@ INSERT INTO `permission_levels` (`id`, `name`, `color`) VALUES
 	(1, 'User', 'neutral'),
 	(2, 'Moderator', 'info'),
 	(3, 'Admin', 'warning'),
-	(100, 'Owner', 'error');
+	(100, 'Owner', 'error'),
+	(1000, 'Server Administrator', 'accent');
 
 -- Dumping structure for table screenie.storage_capacities
 CREATE TABLE IF NOT EXISTS `storage_capacities` (
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `storage_capacities` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table screenie.storage_capacities: ~2 rows (approximately)
+-- Dumping data for table screenie.storage_capacities: ~3 rows (approximately)
 INSERT INTO `storage_capacities` (`id`, `name`, `capacity`) VALUES
 	(1, 'Basic', 512),
 	(2, 'Pro', 1024),
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `uploads` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `uploads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table screenie.uploads: ~0 rows (approximately)
 
@@ -116,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `uploads` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `discord_id` varchar(255) DEFAULT NULL,
   `upload_key` varchar(255) DEFAULT NULL,
   `domain` varchar(255) DEFAULT NULL,
@@ -143,7 +143,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   KEY `storage_capacity_id` (`storage_capacity_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`storage_capacity_id`) REFERENCES `storage_capacities` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table screenie.users: ~0 rows (approximately)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

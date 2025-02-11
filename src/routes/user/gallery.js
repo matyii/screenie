@@ -122,6 +122,7 @@ router.get('/gallery', isAuthenticated, async (req, res) => {
             }
 
             const totalUploads = uploadsResults.length;
+            console.log(totalUploads);
             const totalPages = Math.ceil(totalUploads / perPage);
             const sortedUploads = uploadsResults.sort((a, b) => {
                 if (sortOrder === 'newest') {
