@@ -68,6 +68,18 @@
 </details>
 
 <details>
+    <summary><h2>Docker</h2></summary>
+
+- build the image with command: docker build . -t screenie
+- run container with command: docker run --name screenie -d --rm -p 8000:80 localhost/screenie:latest
+
+- if you want pesistent storage for database, uploads and archives, create volumes with command: docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume
+- then run the container with command podman run --name screenie -d --rm -p 8000:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest
+
+- you can now open screenie on http://localhost:8000
+</details>
+
+<details>
     <summary><h2>Configuration</h2></summary>
 
 Here is a list of all the keys in the config with their meaning:

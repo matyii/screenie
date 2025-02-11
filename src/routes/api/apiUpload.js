@@ -50,11 +50,18 @@ router.post('/', (req, res) => {
                 }
 
                 const newFilePath = path.join(userFolder, `${hash}.${extension}`);
-                fs.rename(files.file.path, newFilePath, (err) => {
+		fs.copyFile(files.file.path, newFilePath, (err) => {
                     if (err) {
                         console.error('Error occurred:', err);
                         return res.render('errors/500');
                     }
+			
+		fs.rm(files.file.path, { recursive:false}, (err) => {
+			if (err) {
+			console.error('Error occurred:', err);
+                        return res.render('errors/500');
+			}
+		});
 
                     const insertQuery = `
                         INSERT INTO uploads (file_name, user_id, user_name, url, raw_url, embed_title, embed_description, embed_color, embed_url, embed_image, embed_footer, upload_date)
