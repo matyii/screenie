@@ -49,6 +49,14 @@
           </div>
         </div>
       </div>
+
+      <% if (userData.warning === 'defaultpassword') { %>
+        <div class="toast toast-end">
+          <div class="alert alert-warning">
+            <span>You are using the default password. Please change it for security reasons.</span>
+          </div>
+        </div>
+      <% } %>
       
       <div class="flex justify-center">
         <div class="card bg-base-200 shadow-xl w-full mb-5 lg:w-2/3">
@@ -105,13 +113,6 @@
         </div>
       </div>
     </div>
-    <% if (userData.warning === 'defaultpassword') { %>
-      <div class="toast toast-end">
-        <div class="alert alert-warning">
-          <span>You are using the default password. Please change it for security reasons.</span>
-        </div>
-      </div>
-    <% } %>
   </div>
 
   <%- include("../modules/modals/archivesModal") %>
