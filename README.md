@@ -76,9 +76,10 @@
 </details>
 
 <details>
-    <summary><h2>One-line easy install</h2></summary>
+    <summary><h2>Install with Docker (Recommended)</h2></summary>
 
-```Soon!```
+To install screenie just pull the latest image, with the command:
+```docker pull ghcr.io/screeniehost/screenie:latest```
 
 </details>
 
