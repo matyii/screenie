@@ -46,7 +46,7 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.release-meta.outputs.version }}
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
