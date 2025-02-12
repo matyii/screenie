@@ -59,10 +59,18 @@ jobs:
       - name: Get release metadata
         id: release-meta
         run: |
-          version=$(cat api/package.json | jq -r .version)
-          echo "commit_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          version=$(jq -r .version api/package.json)
+          if [[ -z "$version" || "$version" == "null" ]]; then
+            echo "Error: version is empty or null" >&2
+            exit 1
+          fi
+          commit_short=$(git rev-parse --short HEAD)
+          major_version=$(echo "$version" | cut -d. -f1)
+      
+          echo "commit_short=$commit_short" >> $GITHUB_OUTPUT
           echo "version=$version" >> $GITHUB_OUTPUT
-          echo "major_version=$(echo "$version" | cut -d. -f1)" >> $GITHUB_OUTPUT
+          echo "major_version=$major_version" >> $GITHUB_OUTPUT
+
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
