@@ -76,9 +76,10 @@
 </details>
 
 <details>
-    <summary><h2>One-line easy install</h2></summary>
+    <summary><h2>Install with Docker (Recommended)</h2></summary>
 
-```Soon!```
+To install screenie just pull the latest image, with the command:
+```docker pull ghcr.io/screeniehost/screenie:latest```
 
 </details>
 
@@ -87,10 +88,10 @@
     <summary><h2>Buildind the docker image</h2></summary>
 
 - Build the image with command: ```docker build --no-cache . -t screenie``` For building the development source, add ```--build-arg BRANCH=development``` to the command line.
-- Run container with command: ```docker run --name screenie -d --rm -p 80:80 screenie:latest```
+- Run container with command: ```docker run --name screenie -d --rm  screeniehost/screenie:latest```
 
 - If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
-- Then run the container with command ```docker run --name screenie -d --rm -p 80:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
+- Then run the container with command ```docker run --name screenie -d --rm -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives screeniehost/screenie:latest```
 
 - You can now open screenie on the domain and port, you've set it up in ```data/config.json```.
 </details>
