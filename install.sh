@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $1 = "--vanilla" ]
+if [ "$1" = "--vanilla" ]
 then
 	echo "Updating package list..."
 	apt update && apt upgrade -y
