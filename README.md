@@ -86,7 +86,7 @@
 <details>
     <summary><h2>Buildind the docker image</h2></summary>
 
-- Build the image with command: ```docker build . -t screenie```
+- Build the image with command: ```docker build --no-cache . -t screenie``` For building the development source, add ```--build-arg BRANCH=development``` to the command line.
 - Run container with command: ```docker run --name screenie -d --rm -p 80:80 screenie:latest```
 
 - If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
