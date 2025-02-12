@@ -8,8 +8,6 @@ RUN git clone -b development https://github.com/matyii/screenie.git
 
 WORKDIR /screenie
 
-RUN service mariadb start
+RUN service mariadb start && chmod +x install.sh && ./install.sh  
 
-CMD [ "chmod +x install.sh && ./install.sh" ] 
-
-ENTRYPOINT service mariadb start; pm2 start . --name screenie;
+ENTRYPOINT service mariadb start; pm2-runtime . --name screenie;

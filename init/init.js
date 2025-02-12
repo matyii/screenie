@@ -70,11 +70,6 @@ if (checkMySQL()) {
         console.log('Warning: Please check the "maindomain" in data/config.json to ensure it is set correctly.');
         console.log('Warning: Please add the DB_HOST IP to the .env file.');
         console.log('Note: The passwords for the admin user and the SQL user are stored in init/passwords.txt.');
-
-        console.log('Starting the app with pm2...');
-        execSync('sleep 5', { stdio: 'ignore' });
-        execSync('pm2 start . --name screenie', { stdio: 'inherit' });
-        execSync('pm2 save', { stdio: 'ignore' });
     } catch (error) {
         console.error('Error occurred during the import process. Please run the following SQL commands manually:');
         console.log('==> init/init.sql');
