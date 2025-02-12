@@ -7,7 +7,7 @@ const { isAuthenticated } = require('../../functions/auth');
 const db = require('../../functions/database');
 const calculateFolderSize = require('../../functions/calculateFolderSize');
 const formatSize = require('../../functions/formatSize');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 router.get("/", isAuthenticated, async (req, res) => {
     try {
