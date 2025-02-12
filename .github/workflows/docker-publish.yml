@@ -38,7 +38,6 @@ jobs:
             commit_short=$(git rev-parse --short HEAD)
             echo "commit_short=$commit_short" >> $GITHUB_OUTPUT
             echo "version=$version" >> $GITHUB_OUTPUT
-            echo "major_version=$(echo "$version" | cut -d. -f1)" >> $GITHUB_OUTPUT
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -47,7 +46,6 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.release-meta.outputs.version }}
-            type=raw,value=${{ steps.release-meta.outputs.major_version }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
