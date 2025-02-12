@@ -6,7 +6,7 @@ RUN apt update && apt upgrade -y
 RUN apt install git nodejs npm mariadb-server -y
 RUN npm install pm2 -g
 
-RUN git clone -b ${BRANCH} https://github.com/matyii/screenie.git
+RUN git clone -b ${BRANCH} https://github.com/screeniehost/screenie.git
 
 WORKDIR /screenie
 
