@@ -65,7 +65,7 @@ router.get("/", isAuthenticated, async (req, res) => {
 
                 if (user.username === 'admin' && user.permission_level === 1000) {
                     if (verifyPassword(defaultPassword, user.password)) {
-                        userData.warning = 'Please change your default password.';
+                        userData.warning = 'defaultpassword';
                     }
                 }
 
