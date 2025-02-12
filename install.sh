@@ -1,11 +1,14 @@
 #!/bin/bash
 
-echo "Updating package list..."
-apt update && apt upgrade -y
+if [ $1 = "--vanilla" ]
+then
+	echo "Updating package list..."
+	apt update && apt upgrade -y
 
-echo "Installing Node.js, npm, and MariaDB..."
-apt install git nodejs npm mariadb-server -y
-npm install pm2 -g
+	echo "Installing Node.js, npm, and MariaDB..."
+	apt install git nodejs npm mariadb-server -y
+	npm install pm2 -g
+fi
 
 echo "Node.js version:"
 node -v
