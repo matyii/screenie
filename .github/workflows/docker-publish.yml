@@ -64,12 +64,11 @@ jobs:
             echo "Error: version is empty or null" >&2
             exit 1
           fi
-          commit_short=$(git rev-parse --short HEAD)
           major_version=$(echo "$version" | cut -d. -f1)
       
-          echo "commit_short=$commit_short" >> $GITHUB_OUTPUT
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "major_version=$major_version" >> $GITHUB_OUTPUT
+
 
 
       # Extract metadata (tags, labels) for Docker
