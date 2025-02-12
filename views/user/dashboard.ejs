@@ -105,15 +105,14 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <% if (userData.warning === 'defaultpassword') { %>
-    <div class="toast toast-end">
-      <div class="alert alert-warning">
-        <span>You are using the default password. Please change it for security reasons.</span>
+    <% if (userData.warning === 'defaultpassword') { %>
+      <div class="toast toast-end">
+        <div class="alert alert-warning">
+          <span>You are using the default password. Please change it for security reasons.</span>
+        </div>
       </div>
-    </div>
-  <% } %>
+    <% } %>
+  </div>
 
   <%- include("../modules/modals/archivesModal") %>
   <%- include("../modules/modals/wipeModal") %>   
