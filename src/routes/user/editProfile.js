@@ -124,6 +124,19 @@ router.post('/updateUserPage', isAuthenticated, (req, res) => {
                 });
               }
               let sharpInstance = sharp(profilePicture.path, { animated: profilePicture.type === 'image/gif' });
+
+              const deleteTempFile = (tempFilePath) => {
+                fs.unlink(tempFilePath, (unlinkErr) => {
+                  if (unlinkErr) {
+                    if (unlinkErr.code === 'EBUSY') {
+                      setTimeout(() => deleteTempFile(tempFilePath), 100);
+                    } else {
+                      console.error('Error occurred while deleting temporary file:', unlinkErr);
+                    }
+                  }
+                });
+              };
+
               if (profilePicture.type === 'image/gif') {
                 sharpInstance
                   .resize(256, 256)
@@ -133,6 +146,11 @@ router.post('/updateUserPage', isAuthenticated, (req, res) => {
                       console.error('Error occurred while processing image:', err);
                       return res.render('errors/500');
                     }
+                    fs.unlink(profilePicture.path, (unlinkErr) => {
+                      if (unlinkErr) {
+                        console.error('Error occurred while deleting temporary file:', unlinkErr);
+                      }
+                    });
                     db.query('UPDATE users SET profile_picture = ? WHERE id = ?', [profilePictureFilename, userId], (updateErr) => {
                       if (updateErr) {
                         console.error('Error occurred during profile picture update:', updateErr);
@@ -152,6 +170,11 @@ router.post('/updateUserPage', isAuthenticated, (req, res) => {
                       console.error('Error occurred while processing image:', err);
                       return res.render('errors/500');
                     }
+                    fs.unlink(profilePicture.path, (unlinkErr) => {
+                      if (unlinkErr) {
+                        console.error('Error occurred while deleting temporary file:', unlinkErr);
+                      }
+                    });
                     db.query('UPDATE users SET profile_picture = ? WHERE id = ?', [profilePictureFilename, userId], (updateErr) => {
                       if (updateErr) {
                         console.error('Error occurred during profile picture update:', updateErr);

@@ -6,7 +6,7 @@
         var uploadKey = `<%=uploadKey%>`;
         config = {
             "Version": "13.4.0",
-            "Name": "screenie.host",
+            "Name": "screenie",
             "DestinationType": "ImageUploader, FileUploader",
             "RequestMethod": "POST",
             "RequestURL": "http://<%=mainDomain%>/api/upload",
@@ -26,7 +26,7 @@
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(configJson));
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "screenie.host.sxcu");
+        downloadAnchorNode.setAttribute("download", "screenie.sxcu");
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();

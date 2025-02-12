@@ -43,18 +43,25 @@ router.post('/', (req, res) => {
                 const userId = user.id;
                 const userFolder = path.join(__dirname, `../../uploads/${userId}`);
                 const folderSize = await calculateFolderSize(userFolder);
-                const storageLimit = user.storage_limit * 1024 * 1024; // Convert to bytes
+                const storageLimit = user.storage_limit * 1024 * 1024;
 
                 if (folderSize + files.file.size > storageLimit) {
                     return res.status(400).send("Storage limit exceeded.");
                 }
 
                 const newFilePath = path.join(userFolder, `${hash}.${extension}`);
-                fs.rename(files.file.path, newFilePath, (err) => {
+                fs.copyFile(files.file.path, newFilePath, (err) => {
+                            if (err) {
+                                console.error('Error occurred:', err);
+                                return res.render('errors/500');
+                            }
+                    
+                fs.rm(files.file.path, { recursive:false}, (err) => {
                     if (err) {
-                        console.error('Error occurred:', err);
-                        return res.render('errors/500');
+                    console.error('Error occurred:', err);
+                                return res.render('errors/500');
                     }
+                });
 
                     const insertQuery = `
                         INSERT INTO uploads (file_name, user_id, user_name, url, raw_url, embed_title, embed_description, embed_color, embed_url, embed_image, embed_footer, upload_date)

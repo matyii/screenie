@@ -1,7 +1,7 @@
 {
-    "maindomain": "localhost",
+    "maindomain": "192.168.0.231",
     "uploadkeylength": 30,
     "nodeserverport": 80,
     "maxSizePerFileMB": 1024,
-    "discordInviteURL": "https://discord.com/invite/tsRDJTARnS"
+    "discordInviteURL": ""
 }

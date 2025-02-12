@@ -1,14 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const serveIndex = require('serve-index');
-const { green, yellow } = require('colorette');
+const { green } = require('colorette');
 const loadFunctions = require("./functions/loadFunctions");
 const folders = require('./data/folders.json');
 const routes = require('./data/routes.json');
 const { handle404 } = require('./functions/httpErrorHandling');
 const auth = require('./functions/auth');
-const cleanupExpiredArchives = require('./functions/cleanupExpiredArchives');
-const cron = require('node-cron');
 const database = require('./functions/database');
 const app = express();
 const appDir = __dirname.replace("src", "");

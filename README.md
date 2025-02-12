@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/preview/logo.png" width="200"/>
+    <img src="preview/logo.png" width="200"/>
     <div>
         <h1>screenie</h1>
         <h5>ShareX screenshot uploader built with NodeJS and <a href="https://v5.daisyui.com/" target="_blank">DaisyUI</a></h5>
@@ -50,19 +50,58 @@
 ![image](preview/usermanagement.png)
 </details>
 
-## Plans in the future
-- [ ] Trying to move the project to a framework
-- [ ] Spotify API for the profiles
-- [ ] Expanding the dashboard
+<details>
+    <summary><h2>Plans in the future</h2></summary>
+
+| Completed? | Description |
+| :---: | --- |
+| ❌ | Trying to move the project to a framework |
+| ❌ | Spotify API for the profiles |
+| ❌ | Expanding the dashboard |
+| ❌ | Adding GitHub packages |
+
+</details>
+
 
 <details>
-    <summary><h2>Install</h2></summary>
+    <summary><h2>Known issues</h2></summary>
+
+
+| Fixed? | Description |
+| :---: | --- |
+| ❌ | When uploading a profile picture, the temporary file is "busy" and can't delete |
+| ❌ | Admins can demote themselves |
+| ❌ | email/username/password validation needs to be fixed |
+
+</details>
+
+<details>
+    <summary><h2>One-line easy install</h2></summary>
+
+```Soon!```
+
+</details>
+
+
+<details>
+    <summary><h2>Buildind the docker image</h2></summary>
+
+- Build the image with command: ```docker build --no-cache . -t screenie``` For building the development source, add ```--build-arg BRANCH=development``` to the command line.
+- Run container with command: ```docker run --name screenie -d --rm -p 80:80 screenie:latest```
+
+- If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
+- Then run the container with command ```docker run --name screenie -d --rm -p 80:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
+
+- You can now open screenie on the domain and port, you've set it up in ```data/config.json```.
+</details>
+
+<details>
+    <summary><h2>Advanced install</h2></summary>
 
 
 - Download / Clone the source code.
-- Run `npm i` to install the packages.
+- Run `chmod +x install.sh && ./install.sh`(Linux) and `node init/init.js`(Windows) for installing the dependencies
 - Fill in the `config.json` config file.
-- Import the SQL file `db.sql`  to your database server and fill in the connection information to the `.env` file.
 - If you have made any changes to the design, run `npm run build:css` to rebuild the CSS file.
 - To run the server, use the command `node .` or `npm start` to run the server.
 </details>
@@ -88,11 +127,12 @@ Here is a list of all the keys in the `.env` file with their meaning:
 | `DB_HOST` | The database host IP. |
 | `DB_USER` | The database user. |
 | `DB_PASSWORD` | The database password. |
-| `DB_NAME` | The database name. (default: `screenie.host`) |
+| `DB_NAME` | The database name. (default: `screenie`) |
 </details>
 
 <details>
     <summary><h2>How to add new endpoints</h2></summary>
+    
 To make a new endpoint you need to make a file in the `routes` folder with your name of choice. Example: `example.js`
 The empty version should look like this:
     
@@ -113,7 +153,7 @@ Then you just need to add a new value to the `"routes.json"` array:
 }
 ```
 
-> [!NOTE]
+> DISCLAIMER
 > In your endpoint JS file, leave the router endpoint on `"/"`, since you will be giving the name of the route in the main `routes.json` file.
 </details>
 

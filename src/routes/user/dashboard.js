@@ -7,6 +7,7 @@ const { isAuthenticated } = require('../../functions/auth');
 const db = require('../../functions/database');
 const calculateFolderSize = require('../../functions/calculateFolderSize');
 const formatSize = require('../../functions/formatSize');
+const bcrypt = require('bcryptjs');
 
 router.get("/", isAuthenticated, async (req, res) => {
     try {
@@ -54,6 +55,19 @@ router.get("/", isAuthenticated, async (req, res) => {
                 userData.folderSize = folderSizeFormatted;
                 userData.storageLimit = storageLimitFormatted;
                 userData.folderSizePercentage = folderSizePercentage.toFixed(2);
+
+                function verifyPassword(inputPassword, hashedPassword) {
+                    return bcrypt.compareSync(inputPassword, hashedPassword);
+                }
+
+                const user = req.user;
+                const defaultPassword = 'screenieadmin';
+
+                if (user.username === 'admin' && user.permission_level === 1000) {
+                    if (verifyPassword(defaultPassword, user.password)) {
+                        userData.warning = 'defaultpassword';
+                    }
+                }
 
                 const uploadsCountQuery = 'SELECT COUNT(*) AS uploadsCount FROM uploads WHERE user_id = ?';
                 db.query(uploadsCountQuery, [userId], (uploadsErr, uploadsResults) => {

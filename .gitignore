@@ -1,6 +1,17 @@
+
+# node
 node_modules/
+
+# user uploads
 src/uploads
 src/uploads/*
 src/archives
 src/archives/*
+
+# secrets
 .env
+
+# initialization
+init/create_admin_user.sql
+init/init.sql
+init/passwords.txt

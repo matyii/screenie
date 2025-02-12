@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard ~ screenie.host</title>
+    <title>Dashboard ~ screenie</title>
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/assets/output.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
 <body>
-
   <div class="container mx-auto p-4 rounded-lg">
     <%- include('../modules/navbar') %>
   </div>
@@ -106,6 +105,14 @@
       </div>
     </div>
   </div>
+
+  <% if (userData.warning === 'defaultpassword') { %>
+    <div class="toast toast-end">
+      <div class="alert alert-error">
+        <span>You are using the default password. Please change it for security reasons.</span>
+      </div>
+    </div>
+  <% } %>
 
   <%- include("../modules/modals/archivesModal") %>
   <%- include("../modules/modals/wipeModal") %>   

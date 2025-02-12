@@ -52,7 +52,7 @@ const isAuthenticated = (req, res, next) => {
 module.exports = (app) => {
   app.use(
     session({
-      secret: "screenie.host",
+      secret: "screenie",
       resave: false,
       saveUninitialized: false,
     })
