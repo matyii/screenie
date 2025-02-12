@@ -21,7 +21,7 @@ function checkMySQL() {
 }
 
 const sqlPassword = generateRandomPassword(16);
-const adminPassword = generateRandomPassword(16);
+const adminPassword = 'screenieadmin';
 const hashedAdminPassword = bcrypt.hashSync(adminPassword, 10);
 const formattedDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 

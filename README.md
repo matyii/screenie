@@ -87,10 +87,10 @@
     <summary><h2>Buildind the docker image</h2></summary>
 
 - Build the image with command: ```docker build . -t screenie```
-- Run container with command: ```docker run --name screenie -d --rm -p 80:80 localhost/screenie:latest```
+- Run container with command: ```docker run --name screenie -d --rm -p 80:80 screenie:latest```
 
 - If you want pesistent storage for database, uploads and archives, create volumes with command: ```docker volume create screenie-database-volume; docker volume create screenie-uploads-volume; docker volume create screenie-archives-volume```
-- Then run the container with command ```podman run --name screenie -d --rm -p 80:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
+- Then run the container with command ```docker run --name screenie -d --rm -p 80:80 -v screenie-database-volume:/var/lib/mysql -v screenie-uploads-volume:/screenie/src/uploads -v screenie-archives-volume:/screenie/src/archives localhost/screenie:latest```
 
 - You can now open screenie on the domain, you've set it up in ```data/config.json```.
 </details>
