@@ -12,4 +12,6 @@ WORKDIR /screenie
 
 RUN service mariadb start && chmod +x install.sh && ./install.sh  
 
+EXPOSE 80
+
 ENTRYPOINT ["sh", "-c", "service mariadb start; pm2-runtime . --name screenie"]
