@@ -59,7 +59,7 @@ jobs:
       - name: Get release metadata
         id: release-meta
         run: |
-          version=$(jq -r .version api/package.json)
+          version=$(jq -r .version package.json)
           if [[ -z "$version" || "$version" == "null" ]]; then
             echo "Error: version is empty or null" >&2
             exit 1
