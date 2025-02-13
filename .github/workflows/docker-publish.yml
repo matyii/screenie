@@ -48,6 +48,11 @@ jobs:
             type=raw,value=${{ steps.release-meta.outputs.version }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Debug metadata output
+        run: |
+          echo "Tags: ${{ steps.meta.outputs.tags }}"
+          echo "Labels: ${{ steps.meta.outputs.labels }}"
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
