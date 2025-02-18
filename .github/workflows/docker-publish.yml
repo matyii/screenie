@@ -75,8 +75,8 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha,scope=${{ github.sha }}
-          cache-to: type=gha,mode=max,scope=${{ github.sha }}
+          cache-from: type=gha,scope=${{ github.sha }}-${{ github.event.inputs.branch }}
+          cache-to: type=gha,mode=max,scope=${{ github.sha }}-${{ github.event.inputs.branch }}
 
       - name: Build and push Docker image for development branch
         if: github.event.inputs.branch == 'development'
@@ -89,5 +89,5 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha,scope=${{ github.sha }}
-          cache-to: type=gha,mode=max,scope=${{ github.sha }}
+          cache-from: type=gha,scope=${{ github.sha }}-${{ github.event.inputs.branch }}
+          cache-to: type=gha,mode=max,scope=${{ github.sha }}-${{ github.event.inputs.branch }}
