@@ -1,0 +1,101 @@
+name: Build Release Docker image
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - main
+          - development
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Get release metadata
+        id: release-meta
+        run: |
+            version=$(jq -r .version package.json || echo "0.0.0")
+            commit_short=$(git rev-parse --short HEAD)
+            echo "commit_short=$commit_short" >> $GITHUB_OUTPUT
+            echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Read versions from versions.json
+        id: read-versions
+        run: |
+            latest=$(jq -r .latest versions.json)
+            beta=$(jq -r .beta versions.json)
+            echo "latest=$latest" >> $GITHUB_OUTPUT
+            echo "beta=$beta" >> $GITHUB_OUTPUT
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          tags: |
+            type=raw,value=${{ github.event.inputs.branch == 'main' && steps.read-versions.outputs.latest || steps.read-versions.outputs.beta }}
+            type=raw,value=${{ github.event.inputs.branch == 'main' && 'latest' || 'beta' }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Debug metadata output
+        run: |
+          echo "Tags: ${{ steps.meta.outputs.tags }}"
+          echo "Labels: ${{ steps.meta.outputs.labels }}"
+
+      - name: Build and push Docker image for main branch
+        if: github.event.inputs.branch == 'main'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image for development branch
+        if: github.event.inputs.branch == 'development'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -4,7 +4,6 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build:css && node .",
     "build:css": "npx @tailwindcss/cli -i views/assets/style.css -o views/assets/output.css"
   },
