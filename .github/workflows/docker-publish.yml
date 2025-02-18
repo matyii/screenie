@@ -2,6 +2,11 @@ name: Build Release Docker image
 
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: true
+        default: 'main'
 
 env:
   REGISTRY: ghcr.io
@@ -17,6 +22,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -39,13 +46,20 @@ jobs:
             echo "commit_short=$commit_short" >> $GITHUB_OUTPUT
             echo "version=$version" >> $GITHUB_OUTPUT
 
+      - name: Read versions from versions.json
+        id: read-versions
+        run: |
+            latest=$(jq -r .latest versions.json)
+            beta=$(jq -r .beta versions.json)
+            echo "latest=$latest" >> $GITHUB_OUTPUT
+            echo "beta=$beta" >> $GITHUB_OUTPUT
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           tags: |
-            type=raw,value=latest
-            type=raw,value=${{ steps.release-meta.outputs.version }}
+            type=raw,value=${{ github.event.inputs.branch == 'main' && steps.read-versions.outputs.latest || steps.read-versions.outputs.beta }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Debug metadata output
@@ -63,6 +77,3 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            UID=100000
-            GID=100000
