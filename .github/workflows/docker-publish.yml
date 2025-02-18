@@ -60,6 +60,7 @@ jobs:
         with:
           tags: |
             type=raw,value=${{ github.event.inputs.branch == 'main' && steps.read-versions.outputs.latest || steps.read-versions.outputs.beta }}
+            type=raw,value=${{ github.event.inputs.branch == 'main' && 'latest' || 'beta' }}
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Debug metadata output
@@ -73,7 +74,11 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
