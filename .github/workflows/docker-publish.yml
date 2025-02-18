@@ -64,13 +64,13 @@ jobs:
           echo "Tags: ${{ steps.meta.outputs.tags }}"
           echo "Labels: ${{ steps.meta.outputs.labels }}"
 
-      - name: Build and push Docker image for main branch
+      - name: Build Docker image for main branch
         if: github.event.inputs.branch == 'main'
         uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: false  # Set push to false here to prevent auto push
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
@@ -78,16 +78,28 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and push Docker image for development branch
+      - name: Build Docker image for development branch
         if: github.event.inputs.branch == 'development'
         uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: false  # Set push to false here to prevent auto push
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Manually push Docker image for main branch
+        if: github.event.inputs.branch == 'main'
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Manually push Docker image for development branch
+        if: github.event.inputs.branch == 'development'
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
