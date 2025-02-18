@@ -7,6 +7,10 @@ on:
         description: 'Branch to build'
         required: true
         default: 'main'
+        type: choice
+        options:
+          - main
+          - development
 
 env:
   REGISTRY: ghcr.io
@@ -68,7 +72,8 @@ jobs:
           echo "Tags: ${{ steps.meta.outputs.tags }}"
           echo "Labels: ${{ steps.meta.outputs.labels }}"
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image for main branch
+        if: github.event.inputs.branch == 'main'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -77,6 +82,18 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.latest }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image for development branch
+        if: github.event.inputs.branch == 'development'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.read-versions.outputs.beta }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:beta
           labels: ${{ steps.meta.outputs.labels }}
