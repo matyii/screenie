@@ -15,7 +15,7 @@
     }
 </script>
 
-<div class="rotate-3d">
+<div class="w-[500px] rotate-3d">
     <div id="image-grid" class="grid grid-cols-3 gap-3">
         {#each {length: 3*3}}
             <img 
