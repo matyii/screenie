@@ -11,26 +11,28 @@
 
 <div class="h-lvh flex flex-col">
     <NavBar/>
-    <div class="flex grow justify-center flex-col relative">
+    <div class="flex grow justify-center flex-col relative text-center lg:text-start">
         <div class="h-full w-full bg-[url(pattern.svg)] bg-cover absolute opacity-40 -z-10"></div>
-        <div class="flex justify-center h-1/2 container">
-            <div class="pe-10">
+        <div class="flex flex-col gap-10 lg:flex-row justify-center h-1/2 container">
+            <div class="order-2 lg:order-1">
                 <div class="mb-2">
                     <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-400">
                         screenie
                     </h1>
-                    <Badge class="inline-block align-top mt-5" variant="outline">beta</Badge>
+                    <div class="block md:inline-block align-top md:mt-5">
+                        <Badge variant="outline">beta</Badge>
+                    </div>
                 </div>
                 <p class="text-gray-500 text-lg mb-5">Easily share your screenshots and videos with friends and colleagues. Upload, manage, and showcase your media effortlessly.</p>
     
-                <div class="mb-5">
-                    <Alert.Root class="w-2/3 mb-2">
+                <div class="flex flex-col gap-2 mb-5 text-start">
+                    <Alert.Root class="w-2/3 m-auto lg:m-0">
                         <Terminal class="size-4" />
                         <Alert.Title>Heads up!</Alert.Title>
                         <Alert.Description class="">You can add components to your app using the cli.</Alert.Description>
                     </Alert.Root>
         
-                    <Alert.Root class="w-2/3">
+                    <Alert.Root class="w-2/3 m-auto lg:m-0">
                         <Terminal class="size-4" />
                         <Alert.Title>Heads up!</Alert.Title>
                         <Alert.Description
@@ -40,7 +42,7 @@
     
                 <Button>Get started!</Button>
             </div>
-            <div>
+            <div class="order-1 lg:order-2 m-auto">
                 <ImageGrid/>
             </div>
         </div>
