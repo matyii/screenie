@@ -19,7 +19,8 @@
     <div id="image-grid" class="grid grid-cols-3 gap-3">
         {#each {length: 3*3}}
             <img 
-                class="shadow-2xl"
+                id="hover"
+                class="shadow-2xl transition-all cursor-pointer rounded-sm select-none"
                 style="transform: scale(0);"
                 src={randomImage()} 
                 alt="A beautiful pic!"
@@ -28,9 +29,12 @@
     </div>
 </div>
 
-
 <style>
     :global(.rotate-3d) {
         transform: perspective(100rem) rotateY(-15deg);
+    }
+
+    :global(#hover:hover) {
+        transform: scale(1.05) !important;
     }
 </style>

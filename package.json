@@ -30,6 +30,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"animejs": "^3.2.2"
+		"animejs": "^3.2.2",
+		"mode-watcher": "^0.5.1"
 	}
 }
