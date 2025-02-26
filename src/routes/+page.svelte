@@ -15,7 +15,7 @@
         <div class="flex justify-center h-1/2 ">
             <div class="pe-10 basis-1/2">
                 <div class="mb-2">
-                    <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-400">
+                    <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-pink-400">
                         screenie
                     </h1>
                     <Badge class="inline-block align-top mt-5" variant="outline">beta</Badge>
