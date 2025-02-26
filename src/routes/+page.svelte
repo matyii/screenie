@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { Badge } from "$lib/components/ui/badge/index.js";
     import { Button } from "$lib/components/ui/button/index.js";
 
@@ -7,6 +7,7 @@
 
     import ImageGrid from "../components/ImageGrid.svelte";
     import NavBar from "../components/NavBar.svelte";
+    import LoginDialog from "../components/LoginDialog.svelte";
 </script>
 
 <div class="h-lvh flex flex-col">
@@ -33,12 +34,12 @@
                     <Alert.Root class="w-2/3">
                         <Terminal class="size-4" />
                         <Alert.Title>Heads up!</Alert.Title>
-                        <Alert.Description
-                          >You can add components to your app using the cli.</Alert.Description>
+                        <Alert.Description>You can add components to your app using the cli.</Alert.Description>
                     </Alert.Root>
                 </div>
     
                 <Button>Get started!</Button>
+                <LoginDialog />
             </div>
             <div>
                 <ImageGrid/>
