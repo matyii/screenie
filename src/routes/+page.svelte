@@ -12,7 +12,7 @@
 <div class="h-lvh flex flex-col">
     <NavBar/>
     <div class="flex grow justify-center flex-col relative">
-        <div class="h-full w-full bg-[url(pattern.svg)] bg-cover absolute opacity-40"></div>
+        <div class="h-full w-full bg-[url(pattern.svg)] bg-cover absolute opacity-40 -z-10"></div>
         <div class="flex justify-center h-1/2 container">
             <div class="pe-10">
                 <div class="mb-2">
