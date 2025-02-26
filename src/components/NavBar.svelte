@@ -12,7 +12,7 @@
 <Card.Root>
     <Card.Content class="container">
         <div class="flex justify-between">
-            <img class="w-20" src="./logo.svg" alt="Logo">
+            <img class="w-20" src="./logo.png" alt="Logo">
             <div>
                 <Button onclick={toggleMode} variant="outline" size="icon">
                     <Sun

@@ -16,7 +16,7 @@
         <div class="flex flex-col gap-10 lg:flex-row justify-center h-1/2 container">
             <div class="order-2 lg:order-1">
                 <div class="mb-2">
-                    <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-400">
+                    <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-pink-400">
                         screenie
                     </h1>
                     <div class="block md:inline-block align-top md:mt-5">
