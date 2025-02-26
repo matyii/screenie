@@ -11,9 +11,10 @@
 
 <div class="h-lvh flex flex-col">
     <NavBar/>
-    <div id="bgx" class="flex grow justify-center items-center flex-col">
-        <div class="flex justify-center h-1/2 ">
-            <div class="pe-10 basis-1/2">
+    <div class="flex grow justify-center flex-col relative">
+        <div class="h-full w-full bg-[url(pattern.svg)] bg-cover absolute opacity-40"></div>
+        <div class="flex justify-center h-1/2 container">
+            <div class="pe-10">
                 <div class="mb-2">
                     <h1 class="inline-block text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-400">
                         screenie
